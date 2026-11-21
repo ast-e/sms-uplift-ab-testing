@@ -1,0 +1,15 @@
+# Raw data is not redistributed: only its README (source and download steps) is tracked
+data_raw/*
+!data_raw/README.md
+
+# Python / Jupyter
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

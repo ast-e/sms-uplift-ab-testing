@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMS Uplift Experiment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one report column. Verdict and numbers first, then validity checks, segments, decision. */
+:root {
+  --bg: #fcfcfb; --surface: #f3f3f0; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+  --line: #e1e0d9; --treated: #2a78d6; --control: #eb6834; --ok: #006300;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1a19; --surface: #242423; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+    --line: #2c2c2a; --treated: #3987e5; --control: #d95926; --ok: #0ca30c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1a1a19; --surface: #242423; --ink: #f0efec; --ink2: #c3c2b7; --muted: #898781;
+  --line: #2c2c2a; --treated: #3987e5; --control: #d95926; --ok: #0ca30c;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 40px 56px; }
+main { max-width: 760px; margin: 0 auto; }
+h1 { font-size: clamp(30px, 6vw, 42px); line-height: 1.1; letter-spacing: -0.02em; margin: 6px 0 14px; text-wrap: balance; }
+h2 { font-size: 20px; letter-spacing: -0.01em; margin: 0 0 8px; text-wrap: balance; }
+p { margin: 0 0 12px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink2); font-weight: 600; }
+.lede { font-size: 18px; color: var(--ink2); }
+.by { font-size: 14px; color: var(--ink2); margin-top: 4px; }
+section { margin-top: 36px; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+@media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kpi { background: var(--surface); border-radius: 10px; padding: 16px 16px; min-width: 0; }
+.kpi b { display: block; font-size: 28px; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .t { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink2); font-weight: 600; margin-bottom: 6px; }
+.kpi span.d { display: block; font-size: 13px; color: var(--ink2); margin-top: 6px; line-height: 1.45; }
+.kpi.treated b { color: var(--treated); }
+.kpi.control b { color: var(--control); }
+.def { font-size: 14px; color: var(--ink2); margin-top: 14px; }
+.verdict { margin-top: 28px; padding: 16px 18px; border-left: 4px solid var(--treated); background: var(--surface); border-radius: 0 10px 10px 0; }
+.verdict p { margin: 0; }
+.tablewrap { overflow-x: auto; margin: 14px 0 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { text-align: left; }
+th { font-weight: 600; color: var(--ink2); font-size: 13px; white-space: nowrap; }
+td.txt, th.txt { text-align: left; }
+.pass { color: var(--ok); font-weight: 700; white-space: nowrap; }
+.note { font-size: 14px; color: var(--ink2); }
+ul.plain { padding-left: 20px; margin: 10px 0 0; }
+ul.plain li { margin-bottom: 8px; }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink2); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<main lang="en">
+  <header>
+    <div class="eyebrow">A/B test report &middot; Retail loyalty programme</div>
+    <h1>SMS Uplift Experiment</h1>
+    <p class="lede">Did a text message make customers buy more, and is it worth sending? X5 Retail Group tested it on 200,039 customers in 2019.</p>
+    <p class="by">Analysis by Eugenio Astocondor of an experiment run by X5 Retail Group in 2019</p>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi control"><span class="t">Control (no SMS)</span><b>60.3%</b><span class="d">bought something &middot; 100,058 customers</span></div>
+    <div class="kpi treated"><span class="t">Treated (SMS)</span><b>63.7%</b><span class="d">bought something &middot; 99,981 customers</span></div>
+    <div class="kpi"><span class="t">Uplift</span><b>+3.3 pp</b><span class="d">95% CI +2.9 to +3.7<br>+5.5% relative to control</span></div>
+    <div class="kpi"><span class="t">Total sample</span><b>200,039</b><span class="d">customers, assigned at random</span></div>
+  </div>
+
+  <div class="verdict">
+    <p><b>Conclusion.</b> The SMS increased purchases. The difference is statistically significant (p &lt; 0.001) and holds when adjusted for past spending (+3.2 pp). Whether it pays off depends on the margin of an extra sale (see below).</p>
+  </div>
+
+  <section>
+    <h2>Was the test fair?</h2>
+    <p>Three checks on the experiment design. All passed, so the difference can be attributed to the SMS.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Check</th><th class="txt">What it tells us</th><th>Result</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Random assignment (sample ratio)</td><td class="txt">49.98% of customers were treated; chi-square vs 50/50</td><td>p = 0.86</td><td class="pass">&#10003; Passed</td></tr>
+          <tr><td>Group balance: age, tenure, gender, card redemption</td><td class="txt">Largest standardised difference between groups (threshold 0.1)</td><td>0.023</td><td class="pass">&#10003; Passed</td></tr>
+          <tr><td>Assignment predictability</td><td class="txt">Cross-validated AUC predicting who was treated (0.5 = chance)</td><td>0.501</td><td class="pass">&#10003; Passed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Who reacts most?</h2>
+    <p>The effect is larger for older customers and for recent cardholders. These are exploratory comparisons and should be confirmed in a follow-up test.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Segment</th><th>Customers</th><th>Uplift (pp)</th><th>95% CI</th></tr></thead>
+        <tbody>
+          <tr><td>Age 16-24</td><td>15,265</td><td>+1.3</td><td>-0.2 to +2.9</td></tr>
+          <tr><td>Age 65+</td><td>29,755</td><td>+5.9</td><td>+4.8 to +7.0</td></tr>
+          <tr><td>Newest cardholders</td><td>50,113</td><td>+4.6</td><td>+3.8 to +5.5</td></tr>
+          <tr><td>Longest-standing cardholders</td><td>49,572</td><td>+2.3</td><td>+1.5 to +3.2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Is it worth sending?</h2>
+    <p>The data has no cost or profit figures, so these are example numbers. At 5 cents per message, each extra sale must bring in at least <b>&euro;1.50</b> of profit for the campaign to pay for itself. For customers aged 65+ the bar is &euro;0.85, and for those aged 16-24 it is &euro;3.73.</p>
+    <p><b>Recommendation.</b> Send the message where an extra sale is worth more than that bar, start with the groups that react most, and keep a small group unmessaged so the effect can keep being measured.</p>
+  </section>
+
+  <footer>
+    <p><b>Data.</b> X5 Retail Group, a Russian food retailer, published this anonymised experiment for its RetailHero uplift modelling competition in 2019. I did not run it. The data is not redistributed here.</p>
+    <p><b>Method.</b> Two-proportion z-test, sample-ratio and balance checks, CUPED adjustment, segment analysis with multiple-testing correction. Full statistical analysis, limitations and a proposed design for the next test are in the technical repository.</p>
+  </footer>
+</main>
+
+</body>
+</html>
