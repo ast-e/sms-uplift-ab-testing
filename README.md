@@ -1,5 +1,7 @@
 # Does an SMS campaign increase purchases? Designing, analysing and refining an A/B test
 
+[![tests](https://github.com/ast-e/sms-uplift-ab-testing/actions/workflows/tests.yml/badge.svg)](https://github.com/ast-e/sms-uplift-ab-testing/actions/workflows/tests.yml)
+
 ## At a glance
 
 | | Purchase rate | Customers |
@@ -8,7 +10,7 @@
 | Treated (SMS) | 63.7 % | 99,981 |
 | **Uplift** | **+3.3 pp** (95 % CI +2.9 to +3.7) | 200,039 in total |
 
-**The SMS works, but the effect is modest.** The experiment was valid (random assignment, balanced groups). The business report is a one-page summary of the result and the decision: [`reports/sms-uplift-experiment.html`](reports/sms-uplift-experiment.html). The rest of this README is the detailed version.
+**The SMS works, but the effect is modest.** The experiment was valid (random assignment, balanced groups). The business report is a one-page summary of the result and the decision: **[read it online](https://ast-e.github.io/sms-uplift-ab-testing/reports/sms-uplift-experiment.html)**. The rest of this README is the detailed version.
 
 ![Preview of the business report](reports/report-preview.png)
 
